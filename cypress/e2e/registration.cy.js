@@ -16,10 +16,10 @@ describe('Student Registration page', () => {
     userData = {
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
+      email: faker.internet.email(),
       mobile: generateMobile(),
       currentAddress: faker.location.streetAddress()
     };
-      userData.email = userData.firstName;
     
     cy.visit('https://demoqa.com/automation-practice-form');
   });
@@ -31,17 +31,18 @@ describe('Student Registration page', () => {
     cy.get('.custom-control-label[for="gender-radio-1"]').click();
     cy.get('#userEmail').type(userData.email);
     cy.get('#userNumber').type(userData.mobile);
+    cy.get('#dateOfBirthInput').click();
+    cy.get('.react-datepicker__day--010').click();
     cy.get('.subjects-auto-complete__value-container').type('English{enter}');
     cy.get('[for="hobbies-checkbox-1"]').click();
     cy.get('[for="hobbies-checkbox-2"]').click();
     cy.get('[for="hobbies-checkbox-3"]').click();
     cy.get('#currentAddress').type(userData.currentAddress);
     cy.get('#state').click();
-    cy.get('#react-select-3-option-1').click();
+    cy.contains('div', 'Uttar Pradesh').click();
     cy.get('#city').click();
-    cy.get('#react-select-4-option-2').click();
+    cy.contains('div', 'Merrut').click();
     cy.get('#submit').click();
-
 
     cy.contains('td', 'Student Name')
       .next('td')
@@ -49,7 +50,7 @@ describe('Student Registration page', () => {
 
     cy.contains('td', 'Student Email')
     .next('td')
-    .should('contain', `${userData.firstName}@gmail.com`);
+    .should('contain', userData.email);
 
     cy.contains('td', 'Gender')
       .next('td')
