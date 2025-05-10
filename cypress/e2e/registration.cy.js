@@ -32,6 +32,8 @@ describe('Student Registration page', () => {
     cy.get('#userEmail').type(userData.email);
     cy.get('#userNumber').type(userData.mobile);
     cy.get('#dateOfBirthInput').click();
+    cy.get('.react-datepicker__month-select').select('May');
+    cy.get('.react-datepicker__year-select').select('2025');
     cy.get('.react-datepicker__day--010').click();
     cy.get('.subjects-auto-complete__value-container').type('English{enter}');
     cy.get('[for="hobbies-checkbox-1"]').click();
